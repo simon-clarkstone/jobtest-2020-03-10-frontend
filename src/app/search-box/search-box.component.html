@@ -1,0 +1,19 @@
+<label for="query">Search term:</label>
+<form onsubmit="return false;">
+    <input #searchBox type="text" name="query" id="query" />
+    <button (click)="search(searchBox.value)" type="submit">Search</button>
+</form>
+<div *ngIf="results === false">Enter search terms above.</div>
+<div *ngIf="results === 'error'">Internal error.</div>
+<table *ngIf="results instanceof Array">
+    <tr *ngFor="let result of results">
+        <td>{{result.engine}}</td>
+        <td>{{result.href | domainName}}</td>
+        <td><a href="{{result.href}}">{{result.text}}</a></td>
+    </tr>
+    <tr *ngIf="results.length === 0">
+        <td></td>
+        <td></td>
+        <td>No results.</td>
+    </tr>
+</table>

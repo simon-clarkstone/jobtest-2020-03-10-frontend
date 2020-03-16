@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'blackdot-test-angular';
+  title = "Simon Clarkstone's submission to Blackdot";
 }
