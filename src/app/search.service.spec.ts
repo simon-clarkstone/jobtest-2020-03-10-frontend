@@ -22,8 +22,8 @@ describe('SearchService', () => {
 
   it('should encode the request parameter', () => {
     http.get.and.returnValue(of([]));
-    service.search("foo%bar&baz");
-    expect(http.get.calls.allArgs()).toEqual([["http://localhost:8080/blackdot_test/search?q=foo%25bar%26baz"]])
+    service.search("foo%bar&baz#\xa3");
+    expect(http.get.calls.allArgs()).toEqual([["http://localhost:8080/blackdot_test/search?q=foo%25bar%26baz%23%C2%A3"]])
   });
 
   it('should cope with error', () => {
