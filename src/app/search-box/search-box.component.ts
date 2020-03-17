@@ -8,6 +8,7 @@ import { SearchService, SearchResults } from '../search.service';
 })
 export class SearchBoxComponent implements OnInit {
 
+  loading: boolean = false;
   results: SearchResults = false;
 
   constructor(private searchService : SearchService) { }
@@ -16,7 +17,9 @@ export class SearchBoxComponent implements OnInit {
   }
 
   search(query: string): void {
+    this.loading = true;
     this.searchService.search(query).subscribe((results: SearchResults) => {
+      this.loading = false;
       this.results = results;
     })
   }

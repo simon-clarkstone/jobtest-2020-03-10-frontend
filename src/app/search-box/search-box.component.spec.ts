@@ -1,6 +1,6 @@
 import { SearchBoxComponent } from './search-box.component';
 import { SearchResults, SearchService } from '../search.service';
-import { of, Observable } from 'rxjs';
+import { of, Observable, Subject } from 'rxjs';
 import { async, TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { DomainNamePipe } from '../domain-name.pipe';
@@ -32,13 +32,11 @@ describe('SearchBoxComponent', () => {
   });
 
   it('renders the results list', async () => {
-    let results: SearchResults = [
-      { engine: "SE1", href: "http://x.org/asdf", text: "qwer" },
-    ];
+    let results: Subject<SearchResults> = new Subject();
     let searchServiceStub = {
       search: function(query: string): Observable<SearchResults> {
         expect(query).toEqual("foo");
-        return of(results);
+        return results;
       }
     };
 
@@ -50,9 +48,23 @@ describe('SearchBoxComponent', () => {
     }).compileComponents();
     
     const fixture = TestBed.createComponent(SearchBoxComponent);
-    fixture.componentInstance.search("foo");
+    // before search performed
     fixture.detectChanges();
     const ele: HTMLDivElement = fixture.nativeElement;
+    expect(ele.getElementsByClassName("loading-message").length).toBe(0, "loading message before search performed");
+    expect(ele.getElementsByClassName("empty-message").length).toBe(1, "empty-box message before search performed");
+
+    // search in progress
+    fixture.componentInstance.search("foo");
+    fixture.detectChanges();
+    expect(ele.getElementsByClassName("loading-message").length).toBe(1, "loading message while results loading");
+    expect(ele.getElementsByClassName("empty-message").length).toBe(0, "empty-box message while results loading");
+
+    // search results returned
+    results.next([ { engine: "SE1", href: "http://x.org/asdf", text: "qwer" } ])
+    fixture.detectChanges();
+    expect(ele.getElementsByClassName("loading-message").length).toBe(0, "loading message after results loaded");
+    expect(ele.getElementsByClassName("empty-message").length).toBe(0, "empty-box message after results loaded");
     let cells = ele.getElementsByTagName('tr')[0].getElementsByTagName('td');
     expect(cells[0].textContent).toEqual("SE1");
     expect(cells[1].textContent).toEqual("x.org");
