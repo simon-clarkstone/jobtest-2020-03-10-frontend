@@ -1,18 +1,21 @@
-# BlackdotTestAngular
+# Blackdot coding test Angular UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+Written by Simon Clarkstone in March 2020, for the coding test for applying to Blackdot.
+(The initial skeleton and various boiler-plate of this project were generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.)
+
+This is an Angular UI for the back-end webapp provided in the other project Simon submitted at the same time.
+See the the back-end webapp's `README.md` for details for functionality provided.
+In brief: it lets you enter a search term and get results from two search engines at once: Bing and DuckDuckGo.
+
+To try out this webapp, launch both its development server *and* the development server of the back-end webapp.
+
+The UI is very plain, having no CSS and very little formatting applied.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+For search to work, the back-end webapp must be also be running, at `http://localhost:8080/blackdot_test`.
+See its `README.md` for how to start the dev server there.
 
 ## Running unit tests
 
@@ -20,8 +23,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
+The end-to-end tests were never updated as new functionality was added and are completely out of date.
+
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
